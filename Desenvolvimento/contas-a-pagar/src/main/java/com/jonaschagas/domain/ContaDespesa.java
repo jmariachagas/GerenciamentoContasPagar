@@ -7,8 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 
 @Entity
 public class ContaDespesa implements Serializable {
@@ -24,11 +22,7 @@ public class ContaDespesa implements Serializable {
 	private Date dataVencimento;
 	private Date dataPagamento;
 
-	@OneToOne
-	@JoinColumn(name = "atraso_id")
-	// @MapsId
-	private AtrasoPagamento atraso;
-
+	
 	public ContaDespesa() {
 		super();
 	}
@@ -77,11 +71,25 @@ public class ContaDespesa implements Serializable {
 		this.dataPagamento = dataPagamento;
 	}
 
-	public AtrasoPagamento getAtraso() {
-		return atraso;
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (int) (id ^ (id >>> 32));
+		return result;
 	}
 
-	public void setAtraso(AtrasoPagamento atraso) {
-		this.atraso = atraso;
-	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ContaDespesa other = (ContaDespesa) obj;
+		if (id != other.id)
+			return false;
+		return true;
+	}	
 }

@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 @Entity
 public class AtrasoPagamento implements Serializable {
@@ -19,12 +21,18 @@ public class AtrasoPagamento implements Serializable {
 	private int diasAtraso;
 	private int multa;
 	private double juros;
+	
+	@OneToOne
+	@JoinColumn(name = "conta_id")
+	private ContaDespesa conta;
+	
 
-	public AtrasoPagamento(int diasAtraso, int multa, double juros) {
+	public AtrasoPagamento(int diasAtraso, int multa, double juros, ContaDespesa conta) {
 		super();
 		this.diasAtraso = diasAtraso;
 		this.multa = multa;
 		this.juros = juros;
+		this.conta = conta;
 	}
 
 	public AtrasoPagamento() {
@@ -57,5 +65,35 @@ public class AtrasoPagamento implements Serializable {
 
 	public void setJuros(double juros) {
 		this.juros = juros;
+	}	
+
+	public ContaDespesa getConta() {
+		return conta;
 	}
+
+	public void setConta(ContaDespesa conta) {
+		this.conta = conta;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (int) (id ^ (id >>> 32));
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		AtrasoPagamento other = (AtrasoPagamento) obj;
+		if (id != other.id)
+			return false;
+		return true;
+	}	
 }

@@ -27,13 +27,12 @@ public class DBService {
 		
 		ContaDespesa conta1 = new ContaDespesa("conta de luz", 60.00, formato.parse("23/08/2020"), formato.parse("17/07/2020"));
 		ContaDespesa conta2 = new ContaDespesa("conta de agua", 100.00, formato.parse("20/04/2020"), formato.parse("15/07/2020"));
+										
+		AtrasoPagamento atraso = new AtrasoPagamento(10, 3, 3.50, conta1);
 		
-		AtrasoPagamento atraso = new AtrasoPagamento(10, 3, 3.50);
-		
-		conta2.setAtraso(atraso);
-		
-		atrasoPagamentoRepository.saveAll(Arrays.asList(atraso));
 		contaDespesaRepository.saveAll(Arrays.asList(conta1, conta2));	
+		atrasoPagamentoRepository.saveAll(Arrays.asList(atraso));
+		
 	}
 
 	
