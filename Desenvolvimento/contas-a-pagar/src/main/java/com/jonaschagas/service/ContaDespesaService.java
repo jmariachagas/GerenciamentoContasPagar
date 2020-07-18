@@ -54,7 +54,7 @@ public class ContaDespesaService {
 	 * @param valorOriginal
 	 * @return
 	 */
-	private Double calculaAtraso(AtrasoPagamento atraso, double valorOriginal) {
+	public Double calculaAtraso(AtrasoPagamento atraso, double valorOriginal) {
 		BigDecimal bd; 
 		double calculoJuros = 0;
 		double calculoMulta = 0;
