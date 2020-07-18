@@ -19,20 +19,18 @@ public class AtrasoPagamento implements Serializable {
 	private long id;
 
 	private int diasAtraso;
-	private int multa;
-	private double juros;
-	
+
+	private Integer tipoCalculo;
+
 	@OneToOne
 	@JoinColumn(name = "conta_id")
 	private ContaDespesa conta;
-	
 
-	public AtrasoPagamento(int diasAtraso, int multa, double juros, ContaDespesa conta) {
+	public AtrasoPagamento(int diasAtraso, ContaDespesa conta, RegraCalculoAtraso tipo) {
 		super();
 		this.diasAtraso = diasAtraso;
-		this.multa = multa;
-		this.juros = juros;
 		this.conta = conta;
+		this.tipoCalculo = tipo.getTipo();
 	}
 
 	public AtrasoPagamento() {
@@ -51,28 +49,20 @@ public class AtrasoPagamento implements Serializable {
 		this.diasAtraso = diasAtraso;
 	}
 
-	public int getMulta() {
-		return multa;
-	}
-
-	public void setMulta(int multa) {
-		this.multa = multa;
-	}
-
-	public double getJuros() {
-		return juros;
-	}
-
-	public void setJuros(double juros) {
-		this.juros = juros;
-	}	
-
 	public ContaDespesa getConta() {
 		return conta;
 	}
 
 	public void setConta(ContaDespesa conta) {
 		this.conta = conta;
+	}	
+
+	public RegraCalculoAtraso getTipoCalculo() {
+		return RegraCalculoAtraso.toEnum(tipoCalculo);
+	}	
+
+	public void setTipoCalculo(RegraCalculoAtraso tipo) {
+		this.tipoCalculo = tipo.getTipo();
 	}
 
 	@Override
@@ -95,5 +85,5 @@ public class AtrasoPagamento implements Serializable {
 		if (id != other.id)
 			return false;
 		return true;
-	}	
+	}
 }

@@ -27,6 +27,7 @@ public class ContaDespesaDTO implements Serializable {
 		this.diasAtraso = diasAtraso;
 		this.dataPagamento = conta.getDataPagamento();
 		this.valorCorrigido = valorCorrigido;
+		this.dataPagamento.setDate(this.dataPagamento.getDate() + 1);
 	}
 	
 	public ContaDespesaDTO() {
