@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.jonaschagas.domain.AtrasoPagamento;
 import com.jonaschagas.domain.ContaDespesa;
+import com.jonaschagas.domain.RegraCalculoAtraso;
 import com.jonaschagas.repository.AtrasoPagamentoRepository;
 import com.jonaschagas.repository.ContaDespesaRepository;
 
@@ -25,10 +26,10 @@ public class DBService {
 	
 	public void instantiateTestDatabase() throws ParseException {
 		
-		ContaDespesa conta1 = new ContaDespesa("conta de luz", 60.00, formato.parse("23/08/2020"), formato.parse("17/07/2020"));
-		ContaDespesa conta2 = new ContaDespesa("conta de agua", 100.00, formato.parse("20/04/2020"), formato.parse("15/07/2020"));
+		ContaDespesa conta1 = new ContaDespesa("conta de luz", 60.00, formato.parse("23/08/2020"), formato.parse("30/08/2020"));
+		ContaDespesa conta2 = new ContaDespesa("conta de agua", 100.00, formato.parse("20/04/2020"), formato.parse("15/04/2020"));
 										
-		AtrasoPagamento atraso = new AtrasoPagamento(10, 3, 3.50, conta1);
+		AtrasoPagamento atraso = new AtrasoPagamento(7, conta1, RegraCalculoAtraso.CALCULO_3);
 		
 		contaDespesaRepository.saveAll(Arrays.asList(conta1, conta2));	
 		atrasoPagamentoRepository.saveAll(Arrays.asList(atraso));

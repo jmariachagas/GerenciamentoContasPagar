@@ -8,6 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class AtrasoPagamento implements Serializable {
@@ -18,21 +20,22 @@ public class AtrasoPagamento implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
+	@Min(value = 1)
 	private int diasAtraso;
-	private int multa;
-	private double juros;
-	
+
+	@NotNull
+	private Integer regraCalculo;
+
+	@NotNull
 	@OneToOne
 	@JoinColumn(name = "conta_id")
 	private ContaDespesa conta;
-	
 
-	public AtrasoPagamento(int diasAtraso, int multa, double juros, ContaDespesa conta) {
+	public AtrasoPagamento(int diasAtraso, ContaDespesa conta, RegraCalculoAtraso regra) {
 		super();
 		this.diasAtraso = diasAtraso;
-		this.multa = multa;
-		this.juros = juros;
 		this.conta = conta;
+		this.regraCalculo = regra.getTipo();
 	}
 
 	public AtrasoPagamento() {
@@ -51,28 +54,20 @@ public class AtrasoPagamento implements Serializable {
 		this.diasAtraso = diasAtraso;
 	}
 
-	public int getMulta() {
-		return multa;
-	}
-
-	public void setMulta(int multa) {
-		this.multa = multa;
-	}
-
-	public double getJuros() {
-		return juros;
-	}
-
-	public void setJuros(double juros) {
-		this.juros = juros;
-	}	
-
 	public ContaDespesa getConta() {
 		return conta;
 	}
 
 	public void setConta(ContaDespesa conta) {
 		this.conta = conta;
+	}	
+
+	public RegraCalculoAtraso getTipoCalculo() {
+		return RegraCalculoAtraso.toEnum(regraCalculo);
+	}	
+
+	public void setTipoCalculo(RegraCalculoAtraso tipo) {
+		this.regraCalculo = tipo.getTipo();
 	}
 
 	@Override
@@ -95,5 +90,5 @@ public class AtrasoPagamento implements Serializable {
 		if (id != other.id)
 			return false;
 		return true;
-	}	
+	}
 }
