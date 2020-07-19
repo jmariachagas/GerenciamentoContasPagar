@@ -8,6 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class AtrasoPagamento implements Serializable {
@@ -18,19 +20,22 @@ public class AtrasoPagamento implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
+	@Min(value = 1)
 	private int diasAtraso;
 
-	private Integer tipoCalculo;
+	@NotNull
+	private Integer regraCalculo;
 
+	@NotNull
 	@OneToOne
 	@JoinColumn(name = "conta_id")
 	private ContaDespesa conta;
 
-	public AtrasoPagamento(int diasAtraso, ContaDespesa conta, RegraCalculoAtraso tipo) {
+	public AtrasoPagamento(int diasAtraso, ContaDespesa conta, RegraCalculoAtraso regra) {
 		super();
 		this.diasAtraso = diasAtraso;
 		this.conta = conta;
-		this.tipoCalculo = tipo.getTipo();
+		this.regraCalculo = regra.getTipo();
 	}
 
 	public AtrasoPagamento() {
@@ -58,11 +63,11 @@ public class AtrasoPagamento implements Serializable {
 	}	
 
 	public RegraCalculoAtraso getTipoCalculo() {
-		return RegraCalculoAtraso.toEnum(tipoCalculo);
+		return RegraCalculoAtraso.toEnum(regraCalculo);
 	}	
 
 	public void setTipoCalculo(RegraCalculoAtraso tipo) {
-		this.tipoCalculo = tipo.getTipo();
+		this.regraCalculo = tipo.getTipo();
 	}
 
 	@Override

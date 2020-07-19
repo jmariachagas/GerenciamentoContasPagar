@@ -9,6 +9,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class ContaDespesa implements Serializable {
@@ -19,14 +22,18 @@ public class ContaDespesa implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
+	@NotEmpty
 	private String nome;
+	
+	@Min(value = 1)
 	private double valorOriginal;
 	
 	
+	@NotNull
 	@Temporal(TemporalType.DATE)
 	private Date dataVencimento;
 	
-	
+	@NotNull
 	@Temporal(TemporalType.DATE)
 	private Date dataPagamento;
 

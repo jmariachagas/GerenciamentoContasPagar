@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import javax.validation.ConstraintViolationException;
+
 import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
@@ -65,13 +67,29 @@ public class ContaDespesaRepositoryTest {
 		Assertions.assertThat(conta.getId()).isNotNull();
 	}
 	
-	@Test ()
-	public void createShouldExptionFieldName() {
-		
+	@Test (expected = ConstraintViolationException.class)
+	public void createShouldExceptionFieldName() {		
 		ContaDespesa conta = new ContaDespesa("", 100.00, data1, data2);
 		conta = this.contaDespesaRepository.save(conta);
-		
-		Assertions.assertThat(conta.getId()).isNotNull();
 	}
 	
+	@Test (expected = ConstraintViolationException.class)
+	public void createShouldExptionFieldValor() {		
+		ContaDespesa conta = new ContaDespesa("Luz", 0.99, data1, data2);
+		conta = this.contaDespesaRepository.save(conta);
+	}
+	
+	@Test (expected = ConstraintViolationException.class)
+	public void createShouldExptionFieldData1() {
+		
+		ContaDespesa conta = new ContaDespesa("Luz", 100.00, null, data2);
+		conta = this.contaDespesaRepository.save(conta);
+	}
+	
+	@Test (expected = ConstraintViolationException.class)
+	public void createShouldExptionFieldData2() {
+		
+		ContaDespesa conta = new ContaDespesa("Luz", 100.00, data1, null);
+		conta = this.contaDespesaRepository.save(conta);
+	}
 }

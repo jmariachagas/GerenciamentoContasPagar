@@ -39,7 +39,7 @@ public class ControllerExceptionHandler {
 			HttpServletRequest request) {
 		ValidationError err = new ValidationError("Erro de Validação", HttpStatus.BAD_REQUEST.value(),
 				System.currentTimeMillis());
-		err.addError("Erro campo de data", "Verifique a formatação da data");
+		err.addError("Erro", "Verifique a formatação dos dados");
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
 	}
 	
