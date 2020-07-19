@@ -10,8 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 @Entity
 public class ContaDespesa implements Serializable {
 
@@ -24,11 +22,11 @@ public class ContaDespesa implements Serializable {
 	private String nome;
 	private double valorOriginal;
 	
-	@JsonFormat(pattern = "dd/MM/yyyy")
+	
 	@Temporal(TemporalType.DATE)
 	private Date dataVencimento;
 	
-	@JsonFormat(pattern = "dd/MM/yyyy")
+	
 	@Temporal(TemporalType.DATE)
 	private Date dataPagamento;
 

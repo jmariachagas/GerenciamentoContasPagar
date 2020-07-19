@@ -3,6 +3,8 @@ package com.jonaschagas.controller;
 import java.net.URI;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,7 +27,7 @@ public class ContaDespesaController {
 	ContaDespesaService contaDespesaService;
 
 	@PostMapping
-	public ResponseEntity<Void> salvar(@RequestBody ContaDespesaNewDTO contaDespesaNewDTO) {
+	public ResponseEntity<Void> salvar(@Valid @RequestBody ContaDespesaNewDTO contaDespesaNewDTO) {
 		ContaDespesa conta = contaDespesaService.fromDTO(contaDespesaNewDTO);
 		conta = contaDespesaService.salvar(conta);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("{id}").buildAndExpand(conta.getId()).toUri();

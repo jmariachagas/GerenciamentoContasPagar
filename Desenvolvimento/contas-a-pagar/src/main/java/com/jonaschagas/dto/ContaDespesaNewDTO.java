@@ -3,9 +3,9 @@ package com.jonaschagas.dto;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -13,20 +13,18 @@ public class ContaDespesaNewDTO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	@NotEmpty(message = "O campo 'nome' deve ser preenchido.")
+	@NotEmpty
 	private String nome;
 	
-	@NotEmpty(message = "O campo 'valor' deve ser preenchido.")
+	@Min(value = 1)
 	private double valorOriginal;
 	
-	@NotEmpty(message = "O campo 'data de vencimento' deve ser preenchido.")
+	@NotNull
 	@JsonFormat(pattern = "dd/MM/yyyy")
-	@Temporal(TemporalType.DATE)
 	private Date dataVencimento;
 	
-	@NotEmpty(message = "O campo 'data de pagamento' deve ser preenchido.")
+	@NotNull
 	@JsonFormat(pattern = "dd/MM/yyyy")
-	@Temporal(TemporalType.DATE)
 	private Date dataPagamento;
 	
 	public ContaDespesaNewDTO() {

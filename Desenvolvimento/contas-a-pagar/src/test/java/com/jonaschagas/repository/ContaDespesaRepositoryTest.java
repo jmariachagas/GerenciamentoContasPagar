@@ -55,4 +55,23 @@ public class ContaDespesaRepositoryTest {
 		
 		Assertions.assertThat(list).isEqualTo(Arrays.asList(conta, conta2));
 	}
+	
+	@Test
+	public void createShouldPersistData() {
+		
+		ContaDespesa conta = new ContaDespesa("Agua", 100.00, data1, data2);
+		conta = this.contaDespesaRepository.save(conta);
+		
+		Assertions.assertThat(conta.getId()).isNotNull();
+	}
+	
+	@Test ()
+	public void createShouldExptionFieldName() {
+		
+		ContaDespesa conta = new ContaDespesa("", 100.00, data1, data2);
+		conta = this.contaDespesaRepository.save(conta);
+		
+		Assertions.assertThat(conta.getId()).isNotNull();
+	}
+	
 }
