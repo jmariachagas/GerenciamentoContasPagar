@@ -38,7 +38,7 @@ public class AtrasoPagamentoService {
 		
 		dias = periodo.getDays();
 		dias_meses = periodo.getMonths();
-		dias_anos = periodo.getYears() * 365;
+		dias_anos = periodo.getYears();
 		
 		if(dias_meses > 0) {
 			dias_meses = dias_meses * 30;
