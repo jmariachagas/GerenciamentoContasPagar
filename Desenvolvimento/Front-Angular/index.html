@@ -1,0 +1,58 @@
+<html ng-app='contasPagar'>
+    <head>
+        <meta charset="UTF-8">
+        <title>Contas a pagar</title>
+        <link rel="stylesheet" type="text/css" href="lib/bootstrap/bootstrap.css">
+        <link rel="stylesheet" type="text/css" href="style/style.css"> 
+        <script src="lib/angular/angular.js"></script>
+        <script src="js/app.js"></script>
+        <script src="js/controller/contasPagarCtrl.js"></script>               
+    </head>
+    <body ng-controller="contasPagarCtrl">
+        <div class="container">
+            <h4 ng-bind="app" ></h4>
+        
+            <table ng-show="contas.length > 0" class="table table-striped">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Nome</th>
+                            <th>Valor Original</th>
+                            <th>Valor Corrigido</th>
+                            <th>Dias de Atraso</th>
+                            <th>Data de Pagamento</th>
+                        </tr>
+                    </thead>                    
+                    <tr ng-repeat="conta in contas">
+                        <td scope="row">{{conta.nome}}</td>
+                        <td scope="row">{{conta.valorOriginal}}</td>
+                        <td scope="row">{{conta.valorCorrigido}}</td>
+                        <td scope="row">{{conta.diasAtraso}}</td>
+                        <td scope="row">{{conta.dataPagamento}}</td>
+                    </tr>                   
+                </table>
+
+                <form name="contaForm">
+                    <div class="form-group">
+                        <label for="formGroupExampleInput">Nome da Conta a Pagar</label>
+                        <input type="text" class="form-control" id="formGroupExampleInput" name="nome" ng-model="conta.nome" placeholder="Nome" ng-required="true">
+                    </div>
+                    <div class="form-group">
+                        <label for="formGroupExampleInput2">Valor da Conta</label>
+                        <input type="number" class="form-control" id="formGroupExampleInput2" name="valor"  ng-model="conta.valorOriginal" placeholder="Valor" ng-required="true">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="formGroupExampleInput3">Data de Vencimento</label>
+                        <input type="date" class="form-control" id="formGroupExampleInput3" name="dataVenc" ng-model="conta.dataVencimento" ng-required="true">
+                    </div>
+                    <div class="form-group">
+                        <label for="formGroupExampleInput4">Data de Pagamento</label>
+                        <input type="date" class="form-control" id="formGroupExampleInput4" name="dataPag" ng-model="conta.dataPagamento" ng-required="true">
+                    </div>
+                </form>
+               <button class="btn btn-primary btn-block" ng-click="adicionarConta(conta)" ng-disabled="!conta.nome || 
+                !conta.valorOriginal || !conta.dataVencimento || !conta.dataPagamento">Adicionar Conta</button>
+        </div>
+    </body>
+</html>
+
